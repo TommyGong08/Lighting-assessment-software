@@ -14,7 +14,7 @@ GanRaoGuang::GanRaoGuang(QWidget *parent) :
     ui(new Ui::GanRaoGuang)
 {
     ui->setupUi(this);
-    this->setStyleSheet("background-color:rgb(238,233,233)");
+    this->setStyleSheet("background-color:rgb(238,233,233)");//
 }
 
 GanRaoGuang::~GanRaoGuang()
