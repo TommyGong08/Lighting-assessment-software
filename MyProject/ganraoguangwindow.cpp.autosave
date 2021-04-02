@@ -1,0 +1,24 @@
+#include "ganraoguangwindow.h"
+#include "ui_ganraoguang.h"
+#include <QFile>
+#include <QDebug>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QAxObject>
+#include <QVariant>
+#include <QList>
+
+
+Ganraoguang::Ganraoguang(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Ganraoguang)
+{
+    ui->setupUi(this);
+    this->setStyleSheet("background-color:rgb(238,233,233)");
+}
+
+Ganraoguang::~Ganraoguang()
+{
+    delete ui;
+}
+
