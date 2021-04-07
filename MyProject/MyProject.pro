@@ -16,11 +16,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ganraoguang.cpp \
     ganraoguang_driver.cpp \
     ganraoguang_illuminancy.cpp \
     ganraoguang_lightness.cpp \
     grayscalestandard.cpp \
+    lightbutton.cpp \
     luminancestandard.cpp \
     lumuniformstan.cpp \
     main.cpp \
@@ -29,11 +29,11 @@ SOURCES += \
     whitefieldcostd.cpp
 
 HEADERS += \
-    ganraoguang.h \
     ganraoguang_driver.h \
     ganraoguang_illuminancy.h \
     ganraoguang_lightness.h \
     grayscalestandard.h \
+    lightbutton.h \
     luminancestandard.h \
     lumuniformstan.h \
     mainwindow.h \
@@ -41,7 +41,6 @@ HEADERS += \
     whitefieldcostd.h
 
 FORMS += \
-    ganraoguang.ui \
     ganraoguang_driver.ui \
     ganraoguang_illuminancy.ui \
     ganraoguang_lightness.ui \

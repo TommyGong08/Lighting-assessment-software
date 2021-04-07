@@ -21,11 +21,20 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void ShowData();
+    void ShowData(int DATA);
+    void ganraoguang_ShowData(int DATA);
+    void Recover_lightButton(Ui::MainWindow *dis);
+    void Set_lightButton(int number,bool judge,Ui::MainWindow *dis);
+    void initStyle();
 
-    double data[15];
-    int Colnum = 2;
-    QString ori_data[15];
+    double data[100][100];
+    QString data1[100][100];
+    int Max_Colnum = 0;
+    int Colsum_sum=0;
+    int ROW=0;
+    int DATA=0;
+    int Last_DATA=0;
+
 
 private slots:
     void on_pBViewStan_clicked();
@@ -44,12 +53,17 @@ private slots:
 
     void on_pBEvaluate_clicked();
 
-    void on_pBshushidu_clicked();
+    void on_pBViewStan_6_clicked();
 
-    void on_pBganraoguang_clicked();
+    void on_pBViewStan_7_clicked();
+
+    void on_pBViewStan_8_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;
     bool isread = false;
+    bool judge=true;
 };
 #endif // MAINWINDOW_H
