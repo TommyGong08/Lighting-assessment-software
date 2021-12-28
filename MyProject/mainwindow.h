@@ -9,6 +9,7 @@
 #include "lumuniformstan.h"
 #include "whitefieldcostd.h"
 #include "ganraoguang.h"
+#include "refresh_rate.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,11 +60,18 @@ private slots:
 
     void on_pBViewStan_8_clicked();
 
+    void on_pBViewStan_9_clicked();
 
+    void grayButtonDisplay(Ui::MainWindow *dis);
+
+    void on_pBNinePoints_clicked();
+
+    void on_pBTwentyFivePoints_clicked();
 
 private:
     Ui::MainWindow *ui;
     bool isread = false;
-    bool judge=true;
+    bool judge = true;
+    bool ninePointsMode = false;
 };
 #endif // MAINWINDOW_H

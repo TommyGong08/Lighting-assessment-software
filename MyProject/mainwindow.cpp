@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ninePointsMode = false;
     this->initStyle();
     //this->setStyleSheet("background-color:rgb(238,233,233)");
 }
@@ -52,8 +53,6 @@ void MainWindow::on_pBLumUnif_clicked()
     lumunistand.exec();
 }
 
-
-
 void MainWindow::on_pBGrayScale_clicked()
 {
     GrayScaleStandard graystand;
@@ -73,6 +72,12 @@ void MainWindow::on_pBViewStan_7_clicked()
 void MainWindow::on_pBViewStan_8_clicked()
 {
     GanRaoGuang_Illuminancy graystand;
+    graystand.exec();
+}
+
+void MainWindow::on_pBViewStan_9_clicked()
+{
+    refresh_rate graystand;
     graystand.exec();
 }
 /*
@@ -174,6 +179,7 @@ void MainWindow::on_pBGetInfo_clicked()
         else if(value=="ganrao_3")   ROW=17;
         else if(value=="ganrao_4")   ROW=18;
         else if(value=="ganrao_5")   ROW=19;
+        else if(value=="refresh_rate")   ROW=20;
         delete cell;
         qDebug()<<value<<" "<<ROW;
         for(int j=ColStart+1;j<ColStart+Col;j++){
@@ -238,7 +244,9 @@ void MainWindow::ganraoguang_ShowData(int DATA)
     ui->lineEdit_9->setText(data1[17][DATA]);
     ui->lineEdit_10->setText(data1[18][DATA]);
     ui->lineEdit_11->setText(data1[19][DATA]);
+    ui->lineEdit_12->setText(data1[20][DATA]);
 }
+
 
 void MainWindow::on_pBReset_clicked()
 {
@@ -254,7 +262,7 @@ void MainWindow::on_pBEvaluate_clicked()
         QMessageBox::information(NULL, "错误", "未导入数据,无法评价", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         return ;
     }
-    Recover_lightButton(ui);//回复灯光
+    Recover_lightButton(ui);//恢复灯光
     QString s=ui->lineEdit_1->text();//获取要显示的数据是第几组
     DATA=s.toInt();
     if(DATA<=0||DATA>=Max_Colnum){
@@ -368,6 +376,10 @@ void MainWindow::on_pBEvaluate_clicked()
             ui->plainTextEdit->insertPlainText("驾驶员干扰光中的阈值增量不符合标准！\n");
             judge=false;
         }
+        if(data[20][DATA]<60||data[20][DATA]>5000){
+            ui->plainTextEdit->insertPlainText("驾驶员干扰光中的阈值增量不符合标准！\n");
+            judge=false;
+        }
         if(judge){
             QTextCharFormat fmt;
             fmt.setForeground(QColor(Qt::green));
@@ -386,24 +398,50 @@ void MainWindow::Recover_lightButton( Ui::MainWindow *dis)
     dis->lightButton1_1->setLightBlue();
     dis->lightButton1_2->setLightBlue();
     dis->lightButton1_3->setLightBlue();
-    dis->lightButton1_4->setLightBlue();
-    dis->lightButton1_5->setLightBlue();
     dis->lightButton1_6->setLightBlue();
     dis->lightButton1_7->setLightBlue();
     dis->lightButton1_8->setLightBlue();
-    dis->lightButton1_9->setLightBlue();
-    dis->lightButton1_10->setLightBlue();
     dis->lightButton1_11->setLightBlue();
     dis->lightButton1_12->setLightBlue();
     dis->lightButton1_13->setLightBlue();
-    dis->lightButton1_14->setLightBlue();
-    dis->lightButton1_15->setLightBlue();
-    dis->lightButton1_16->setLightBlue();
-    dis->lightButton1_17->setLightBlue();
-    dis->lightButton1_18->setLightBlue();
-    dis->lightButton1_19->setLightBlue();
-    dis->lightButton1_20->setLightBlue();
+    if(ninePointsMode == false){
+        dis->lightButton1_4->setLightBlue();
+        dis->lightButton1_5->setLightBlue();
+        dis->lightButton1_9->setLightBlue();
+        dis->lightButton1_10->setLightBlue();
+        dis->lightButton1_14->setLightBlue();
+        dis->lightButton1_15->setLightBlue();
+        dis->lightButton1_16->setLightBlue();
+        dis->lightButton1_17->setLightBlue();
+        dis->lightButton1_18->setLightBlue();
+        dis->lightButton1_19->setLightBlue();
+        dis->lightButton1_20->setLightBlue();
+        dis->lightButton1_21->setLightBlue();
+        dis->lightButton1_22->setLightBlue();
+        dis->lightButton1_23->setLightBlue();
+        dis->lightButton1_24->setLightBlue();
+        dis->lightButton1_25->setLightBlue();
+    }
+    else if (ninePointsMode == true){
+        dis->lightButton1_4->setLightGray();
+        dis->lightButton1_5->setLightGray();
+        dis->lightButton1_9->setLightGray();
+        dis->lightButton1_10->setLightGray();
+        dis->lightButton1_14->setLightGray();
+        dis->lightButton1_15->setLightGray();
+        dis->lightButton1_16->setLightGray();
+        dis->lightButton1_17->setLightGray();
+        dis->lightButton1_18->setLightGray();
+        dis->lightButton1_19->setLightGray();
+        dis->lightButton1_20->setLightGray();
+        dis->lightButton1_21->setLightGray();
+        dis->lightButton1_22->setLightGray();
+        dis->lightButton1_23->setLightGray();
+        dis->lightButton1_24->setLightGray();
+        dis->lightButton1_25->setLightGray();
+    }
 }
+
 void MainWindow::Set_lightButton(int number,bool judge,Ui::MainWindow *dis)
 {
     number=number%21+number/21;
@@ -487,6 +525,26 @@ void MainWindow::Set_lightButton(int number,bool judge,Ui::MainWindow *dis)
         if(judge) dis->lightButton1_20->setLightGreen();
         else      dis->lightButton1_20->setLightRed();
     }
+    else if(number==21){
+        if(judge) dis->lightButton1_21->setLightGreen();
+        else      dis->lightButton1_21->setLightRed();
+    }
+    else if(number==22){
+        if(judge) dis->lightButton1_22->setLightGreen();
+        else      dis->lightButton1_22->setLightRed();
+    }
+    else if(number==23){
+        if(judge) dis->lightButton1_23->setLightGreen();
+        else      dis->lightButton1_23->setLightRed();
+    }
+    else if(number==24){
+        if(judge) dis->lightButton1_24->setLightGreen();
+        else      dis->lightButton1_24->setLightRed();
+    }
+    else if(number==25){
+        if(judge) dis->lightButton1_25->setLightGreen();
+        else      dis->lightButton1_25->setLightRed();
+    }
 }
 
 void MainWindow::initStyle()
@@ -497,6 +555,7 @@ void MainWindow::initStyle()
     ui->lineEdit_9->setText("");
     ui->lineEdit_10->setText("");
     ui->lineEdit_11->setText("");
+    ui->lineEdit_12->setText("");
     ui->lineEdit_15->setText("");
     ui->lineEdit_16->setText("");
     ui->lineEdit_17->setText("");
@@ -511,7 +570,7 @@ void MainWindow::initStyle()
     ui->lineEdit_26->setText("");
     ui->lineEdit_27->setText("");
     ui->lineEdit_28->setText("");
-    Recover_lightButton(ui);//回复灯光
+    Recover_lightButton(ui);//恢复灯光
     ui->lineEdit->setText("");
     ui->lineEdit_1->setText("");
     ui->plainTextEdit->clear();
@@ -519,5 +578,56 @@ void MainWindow::initStyle()
 
 
 
+void MainWindow::grayButtonDisplay(Ui::MainWindow *dis){
+    if(ninePointsMode == false){
+        dis->lightButton1_4->setLightBlue();
+        dis->lightButton1_5->setLightBlue();
+        dis->lightButton1_9->setLightBlue();
+        dis->lightButton1_10->setLightBlue();
+        dis->lightButton1_14->setLightBlue();
+        dis->lightButton1_15->setLightBlue();
+        dis->lightButton1_16->setLightBlue();
+        dis->lightButton1_17->setLightBlue();
+        dis->lightButton1_18->setLightBlue();
+        dis->lightButton1_19->setLightBlue();
+        dis->lightButton1_20->setLightBlue();
+        dis->lightButton1_21->setLightBlue();
+        dis->lightButton1_22->setLightBlue();
+        dis->lightButton1_23->setLightBlue();
+        dis->lightButton1_24->setLightBlue();
+        dis->lightButton1_25->setLightBlue();
+    }
+    else if (ninePointsMode == true){
+        dis->lightButton1_4->setLightGray();
+        dis->lightButton1_5->setLightGray();
+        dis->lightButton1_9->setLightGray();
+        dis->lightButton1_10->setLightGray();
+        dis->lightButton1_14->setLightGray();
+        dis->lightButton1_15->setLightGray();
+        dis->lightButton1_16->setLightGray();
+        dis->lightButton1_17->setLightGray();
+        dis->lightButton1_18->setLightGray();
+        dis->lightButton1_19->setLightGray();
+        dis->lightButton1_20->setLightGray();
+        dis->lightButton1_21->setLightGray();
+        dis->lightButton1_22->setLightGray();
+        dis->lightButton1_23->setLightGray();
+        dis->lightButton1_24->setLightGray();
+        dis->lightButton1_25->setLightGray();
+    }
+}
 
 
+void MainWindow::on_pBNinePoints_clicked()
+{
+    ninePointsMode = true;
+    //qDebug() << "nine point mode: true";
+    grayButtonDisplay(ui);
+}
+
+void MainWindow::on_pBTwentyFivePoints_clicked()
+{
+    ninePointsMode = false;
+    //qDebug() << "nine point mode: false";
+    grayButtonDisplay(ui);
+}

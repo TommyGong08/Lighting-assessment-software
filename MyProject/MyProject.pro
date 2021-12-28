@@ -25,6 +25,7 @@ SOURCES += \
     lumuniformstan.cpp \
     main.cpp \
     mainwindow.cpp \
+    refresh_rate.cpp \
     viewstandard.cpp \
     whitefieldcostd.cpp
 
@@ -37,6 +38,7 @@ HEADERS += \
     luminancestandard.h \
     lumuniformstan.h \
     mainwindow.h \
+    refresh_rate.h \
     viewstandard.h \
     whitefieldcostd.h
 
@@ -48,6 +50,7 @@ FORMS += \
     luminancestandard.ui \
     lumuniformstan.ui \
     mainwindow.ui \
+    refresh_rate.ui \
     viewstandard.ui \
     whitefieldcostd.ui
 
@@ -56,7 +59,10 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+DISTFILES += \
+    formula_1.png
 
 RESOURCES += \
+    formula/formula.qrc \
+    formula/formula.qrc \
     sources.qrc

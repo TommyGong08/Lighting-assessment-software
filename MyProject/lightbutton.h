@@ -142,12 +142,13 @@ public Q_SLOTS:
     //设置为蓝色
     void setBlue();
     //设置为淡蓝色
+    void setLightGray();
+    //设置为灰色
     void setLightBlue();
     //设置为淡红色
     void setLightRed();
     //设置为淡绿色
     void setLightGreen();
-
     //设置报警闪烁
     void startAlarm();
     void stopAlarm();
